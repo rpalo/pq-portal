@@ -14,7 +14,20 @@ class Plastic(models.Model):
         return self.quantity < self.order_threshhold
 
     def __str__(self):
-        return "<Plastic {}>".format(self.number)
+        return self.number
 
     def get_absolute_url(self):
         return "/inventory/detail/{}/".format(str(self.id))
+
+class Log(models.Model):
+
+    plastic = models.ForeignKey('Plastic', on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    change = models.DecimalField(max_digits=5, decimal_places=2)
+    notes = models.CharField(max_length=200, blank=True)
+
+    def __str__(self):
+        return str(self.timestamp)
+
+    class Meta:
+        ordering = ['-timestamp']
