@@ -2,14 +2,14 @@
 {% load helpers %}
 
 {% block title %}
-Add Plastic
+{% if batch %}PQ Inventory - Batch {{ batch.batch }}{% else %}PQ Inventory - New Batch{% endif %}
 {% endblock %}
 
 {% block body %}
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      <h2>New Log</h2>
-      <form action="{% url 'add-log' %}" method="post">
+      <h2>{% if batch %}{{ batch.batch }}{% else %}New Batch{% endif %}</h2>
+      <form action="{% if batch %}{% url 'batch-detail' batch.pk %}{% else %}{% url 'add-batch' %}{% endif %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {% for field in form %}
           <div class="form-group">

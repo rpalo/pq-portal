@@ -26,3 +26,7 @@ nav ul li {
 .log-subtable {
 	padding-top: 20px;
 }
+
+a.btn:hover {
+	color: #000;
+}

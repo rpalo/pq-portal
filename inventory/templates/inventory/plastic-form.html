@@ -7,7 +7,7 @@
 
 {% block body %}
   <div class="row">
-    <div class="col-md-8 col-md-offset-2">
+    <div class="col-md-9">
       <h2>{% if plastic %}{{ plastic.number }}{% else %}New Plastic{% endif %}</h2>
       <form action="{% if plastic %}{{ plastic.get_absolute_url }}{% else %}{% url 'add' %}{% endif %}" method="post">
         {% csrf_token %}
@@ -20,6 +20,15 @@
         <input type="submit" value="Save" />
       </form>
     </div>
+    {% if plastic %}
+    <div class="col-md-3">
+      <aside class="well">
+        <ul class="nav nav-pills nav-stacked">
+          <li><a class="btn btn-primary" href="/inventory/batches/?plastic={{ plastic.pk }}">Active Batches</a></li>
+        </ul>
+      </aside>
+    </div>
+    {% endif %}
   </div>
   <br>
   {% if plastic %}

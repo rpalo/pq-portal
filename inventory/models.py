@@ -31,3 +31,21 @@ class Log(models.Model):
 
     class Meta:
         ordering = ['-timestamp']
+
+class Batch(models.Model):
+
+    plastic = models.ForeignKey('Plastic', on_delete=models.CASCADE)
+    date_added = models.DateField("date added", auto_now_add=True)
+    batch = models.CharField("batch number", max_length=20)
+    certificate = models.FileField("Certificate of Analysis", upload_to='certs')
+    notes = models.CharField(max_length=200, blank=True)
+
+    def __str__(self):
+        return self.batch
+
+    def get_absolute_url(self):
+        return "/inventory/batches/{}".format(self.pk)
+        
+    class Meta:
+        verbose_name_plural = "batches"
+        ordering = ['-date_added']  
