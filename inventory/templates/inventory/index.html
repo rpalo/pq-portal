@@ -14,7 +14,7 @@
       <th>Vendor</th>
     </tr>
     {% for plastic in plastics %}
-      <tr>
+      <tr {% if plastic.needs_ordered %}class="danger"{% endif %}>
         <td>{{ plastic.id }}</td>
         <td><a href="{{ plastic.get_absolute_url }}">{{ plastic.number }}</a></td>
         <td>{{ plastic.description }}</td>
