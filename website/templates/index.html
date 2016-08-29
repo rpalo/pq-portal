@@ -1,16 +1,61 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="{% static 'inventory/css/custom.css' %}">
     <title>ProtoQuick Portal</title>
     <style>
       body {
         text-align: center;
         font-family: Helvetica, Verdana, sans-serif;
       }
+      .icon {
+        width: 64px;
+        height: 64px;
+      }
+      #icons {
+        text-align: center;
+        padding-top: 100px;
+        
+      }
+      table {
+        border-collapse: separate !important;
+        border: 1px solid #CCC;
+        border-radius: 10px;
+      }
+      a {
+        text-decoration: none;
+      }
+      td {
+        padding: 20px;
+        overflow: auto;
+      }
     </style>
   </head>
   <body>
-    <h1>Under Construction!</h1>
-    <p>ProtoQuick Portal is coming soon!</p>
+    <h1>ProtoQuick Portal</h1>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-2 col-md-offset-5">
+          <div id="icons">
+            <table class="icontable">
+              <tr>
+                <td><a href="/inventory/"><img class="icon" src="{% static 'img/inventory_icon.ico' %}" /><br />Plastic Inventory</a></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   </body>
 </html>
