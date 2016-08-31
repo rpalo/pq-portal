@@ -1,3 +1,5 @@
+"""Model-based forms and their customization"""
+
 from django.forms import ModelForm
 from .models import Batch, Plastic, Log
 

@@ -1,3 +1,4 @@
 from django.test import TestCase
 
-# Create your tests here.
+# TODO: Generate tests to ensure application works.
+# Also, get better at TDD
