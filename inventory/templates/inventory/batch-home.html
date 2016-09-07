@@ -20,7 +20,7 @@
         <td>{{ batch.pk }}</td>
         <td><a href="{{ batch.get_absolute_url }}">{{ batch.batch }}</a></td>
         <td>{{ batch.plastic }}</td>
-        <td><a href="{{ batch.certificate.url }}">{{ batch.certificate }}</a></td>
+        <td><a href="{% if batch.certificate %}{{ batch.certificate.url }}{% else %}#{% endif %}">{{ batch.certificate }}</a></td>
         <td>{{ batch.notes }}</td>
         <td><a href="{% url 'delete-batch' batch.pk %}"><span class="glyphicon glyphicon-remove"></span></a></td>
       </tr>

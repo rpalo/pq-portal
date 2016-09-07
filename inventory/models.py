@@ -1,6 +1,7 @@
 """Inventory Database Models"""
 
 from django.db import models
+from django.core.exceptions import ValidationError
 
 class Plastic(models.Model):
     """Represents a type of plastic used for injection molding."""
@@ -47,6 +48,11 @@ class Log(models.Model):
     def __str__(self):
         return str(self.timestamp)
 
+    def clean(self, *args, **kwargs):
+        super(Log, self).clean(*args, **kwargs)
+        if self.part.plastic != self.batch.plastic:
+            raise ValidationError('Batch and Part plastics do not match.')
+
     def parts_per_pound(self):
         """Calculates the parts/pound for this log"""
         if self.quantity == None:
@@ -66,7 +72,7 @@ class Batch(models.Model):
     plastic = models.ForeignKey('Plastic', on_delete=models.CASCADE)
     date_added = models.DateField("date added", auto_now_add=True)
     batch = models.CharField("batch number", max_length=20)
-    certificate = models.FileField("Certificate of Analysis", upload_to='certs')
+    certificate = models.FileField("Certificate of Analysis", upload_to='certs', null=True, blank=True)
     notes = models.CharField(max_length=200, blank=True)
 
     def __str__(self):
@@ -83,6 +89,7 @@ class Part(models.Model):
     """A part is an item we make using the plastics we have"""
 
     number = models.CharField("part number", max_length=50)
+    description = models.CharField(max_length=50, null=True, blank=True)
     plastic = models.ForeignKey('Plastic', on_delete=models.PROTECT)
     weight = models.DecimalField(max_digits=10, decimal_places=3, null=True)
 

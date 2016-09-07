@@ -30,3 +30,13 @@ nav ul li {
 a.btn:hover {
 	color: #000;
 }
+
+#addlog {
+	color: #FFF;
+	background-color: #77C;
+	border-radius: 10px;
+}
+
+.error {
+	background-color: #FFDDDD;
+}

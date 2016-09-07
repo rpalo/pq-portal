@@ -2,15 +2,15 @@
 {% load helpers %}
 
 {% block title %}
-{% if batch %}PQ Inventory - Batch {{ batch.batch }}{% else %}PQ Inventory - New Batch{% endif %}
+{% if part %}PQ Inventory - Part# {{ part.number }}{% else %}PQ Inventory - New Part{% endif %}
 {% endblock %}
 
 {% block body %}
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      <h2>{% if batch %}{{ batch.batch }}{% else %}New Batch{% endif %}</h2>
+      <h2>{% if part %}{{ part.number }}{% else %}New Part{% endif %}</h2>
       {% include 'inventory/form-errors.html' %}
-      <form action="{% if batch %}{% url 'batch-detail' batch.pk %}{% else %}{% url 'add-batch' %}{% endif %}" method="post" enctype="multipart/form-data">
+      <form action="{% if part %}{% url 'part-detail' part.pk %}{% else %}{% url 'add-part' %}{% endif %}" method="post">
         {% csrf_token %}
         {% for field in form %}
           <div class="form-group">

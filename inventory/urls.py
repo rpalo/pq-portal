@@ -27,4 +27,12 @@ urlpatterns = [
     url(r'^batches/add/$', views.addBatch, name='add-batch'),
     # View details/modify specific batch
     url(r'^batches/(?P<id>[0-9]+)/$', views.batchDetail, name='batch-detail'),
+    # Parts Home/List all parts
+    url(r'^parts/$', views.partIndex, name="part-home"),
+    # Add new part
+    url(r'^parts/add/$', views.addPart, name="add-part"),
+    # Modify Part
+    url(r'^parts/(?P<id>[0-9]+)/$', views.partDetail, name="part-detail"),
+    # Delete part
+    url(r'^parts/delete/(?P<id>[0-9]+)/$', views.deletePart, name="delete-part"),
 ]

@@ -3,8 +3,10 @@
 # Imports
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
-from .models import Batch, Log, Plastic
-from .forms import BatchForm, LogForm, PlasticForm
+from .models import Batch, Log, Plastic, Part
+from .forms import BatchForm, LogForm, PlasticForm, PartForm
+from django.db.models import ProtectedError
+from django.contrib import messages
 
 ### Plastics Views
 
@@ -23,7 +25,7 @@ def add(request):
         if form.is_valid():
             # Create new plastic and log the creation
             newPlastic = form.save()
-            firstLog = Log(plastic=newPlastic, change=newPlastic.quantity, notes="Added new plastic")
+            firstLog = Log(change=newPlastic.quantity, notes="Added new plastic")
             firstLog.save()
             return HttpResponseRedirect('/inventory/')
         else:
@@ -62,7 +64,10 @@ def detail(request, id):
 # Delete a plastic
 def delete(request, id):
     plastic = get_object_or_404(Plastic, pk=id)
-    plastic.delete()
+    try:
+        plastic.delete()
+    except ProtectedError:
+        messages.error(request, 'Cannot delete this plastic.  A part or batch exists that references this plastic.')
     return HttpResponseRedirect("/inventory/")
 
 ### Log Views
@@ -84,7 +89,8 @@ def addLog(request):
             newLog.save()
             return HttpResponseRedirect(newLog.plastic.get_absolute_url())
         else:
-            raise Http404("Log couldn't be added")
+            return render(request, "inventory/log-form.html",
+                        {"form": form})
     else:
 
     # Otherwise, show the blank log form
@@ -106,7 +112,10 @@ def logIndex(request, plastic=None):
 # Delete a specific log
 def deleteLog(request, id):
     log = get_object_or_404(Log, pk=id)
-    log.delete()
+    try:
+        log.delete()
+    except ProtectedError:
+        messages.error("Could not delete this log.  It may have children that depend on it.")
     return HttpResponseRedirect('/inventory/logs')
 
 ### Batch Views
@@ -126,7 +135,10 @@ def batchIndex(request):
 # Delete a specific batch
 def deleteBatch(request, id):
     batch = get_object_or_404(Batch, pk=id)
-    batch.delete()
+    try:
+        batch.delete()
+    except ProtectedError:
+        messages.error("Could not delete this batch.  There may be logs for this batch.  Delete those first.")
     return HttpResponseRedirect('/inventory/batches/')
 
 # Add a new batch
@@ -169,3 +181,61 @@ def batchDetail(request, id):
         return render(request, 'inventory/batch-form.html',
                                 {"form": form,
                                 "batch": batch})
+
+### Part Views
+
+# List all parts
+def partIndex(request):
+    parts = Part.objects.all()
+    return render(request, "inventory/part-home.html",
+                            {"parts": parts})
+
+# Delete a part
+def deletePart(request, id):
+    part = get_object_or_404(Part, pk=id)
+    try:
+        part.delete()
+    except ProtectedError:
+        messages.error("Could not delete part.  There may be a log that depends on this.  Delete those logs first.")
+    return HttpResponseRedirect('/inventory/parts')
+
+# Add a new part
+def addPart(request):
+
+    # If form was submitted
+    if request.method == "POST":
+        # Check if form is valid.  If so, 
+        form  = PartForm(request.POST)
+        if form.is_valid():
+            # Save new part
+            form.save()
+            return HttpResponseRedirect("/inventory/parts/")
+        else:
+            return render(request, "inventory/part-form.html",
+                            {"form": form})
+    else:
+        # Show blank form
+        form = PartForm()
+        return render(request, "inventory/part-form.html",
+                        {"form": form})
+
+# Modify a part
+def partDetail(request, id):
+    part = get_object_or_404(Part, pk=id)
+
+    # If the form has been submitted
+    if request.method == "POST":
+        # Make sure the form is valid
+        form = PartForm(request.POST, instance=part)
+        if form.is_valid():
+            # save changes
+            form.save()
+            return HttpResponseRedirect('/inventory/parts/')
+        else:
+            raise Http404("Batch couldn't be modified.")
+    else:
+    # Otherwise, show form filled in with current batch data
+        form = PartForm(instance=part)
+        return render(request, 'inventory/part-form.html',
+                                {"form": form,
+                                "part": part})
