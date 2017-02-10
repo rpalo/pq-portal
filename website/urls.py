@@ -9,5 +9,6 @@ from django.views.generic import TemplateView
 urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name='index.html')),   # Main portal page
     url(r'^admin/', admin.site.urls),                               # Admin site
-    url(r'^inventory/', include('inventory.urls'))                  # Inventory App
+    url(r'^inventory/', include('inventory.urls')),                  # Inventory App
+    url(r'^quality/', include('quality.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)   # Include uploaded media files
