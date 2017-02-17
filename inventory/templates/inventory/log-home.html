@@ -1,4 +1,4 @@
-{% extends 'inventory/base.html' %}
+{% extends 'shared/base.html' %}
 
 {% block title %}PQ Inventory - Logs{% endblock %}
 
@@ -17,7 +17,7 @@
     </tr>
     {% for log in logs %}
       <tr>
-        <td>{{ log.id }}</td>
+        <td>{{ log.pk }}</td>
         <td>{{ log.timestamp }}</a></td>
         <td>{{ log.plastic }}</td>
         <td>{{ log.change }}</td>

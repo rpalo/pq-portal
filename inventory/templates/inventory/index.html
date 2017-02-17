@@ -1,6 +1,10 @@
-{% extends 'inventory/base.html' %}
+{% extends 'shared/base.html' %}
 
 {% block title %}PQ Inventory - Plastics{% endblock %}
+
+{% block header %}
+  {% include 'inventory/header.html' %}
+{% endblock %}
 
 {% block body %}
 
@@ -17,7 +21,7 @@
     </tr>
     {% for plastic in plastics %}
       <tr {% if plastic.needs_ordered %}class="danger"{% endif %}>
-        <td>{{ plastic.id }}</td>
+        <td>{{ plastic.pk }}</td>
         <td><a href="{{ part.get_absolute_url }}">{{ plastic.number }}</a></td>
         <td>{{ plastic.description }}</td>
         <td>{{ plastic.quantity }}</td>

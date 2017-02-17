@@ -1,4 +1,4 @@
-{% extends 'inventory/base.html' %}
+{% extends 'shared/base.html' %}
 {% load helpers %}
 
 {% block title %}
@@ -9,7 +9,7 @@
   <div class="row">
     <div class="col-md-9">
       <h2>{% if plastic %}{{ plastic.number }}{% else %}New Plastic{% endif %}</h2>
-      {% include 'inventory/form-errors.html' %}
+      {% include 'shared/form-errors.html' %}
       <form action="{% if plastic %}{{ plastic.get_absolute_url }}{% else %}{% url 'add' %}{% endif %}" method="post">
         {% csrf_token %}
         {% for field in form %}

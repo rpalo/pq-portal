@@ -1,4 +1,4 @@
-{% extends 'inventory/base.html' %}
+{% extends 'shared/base.html' %}
 {% load helpers %}
 
 {% block title %}
@@ -9,7 +9,7 @@
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
       <h2>{% if batch %}{{ batch.batch }}{% else %}New Batch{% endif %}</h2>
-      {% include 'inventory/form-errors.html' %}
+      {% include 'shared/form-errors.html' %}
       <form action="{% if batch %}{% url 'batch-detail' batch.pk %}{% else %}{% url 'add-batch' %}{% endif %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {% for field in form %}
