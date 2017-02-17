@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>RMA's</title>
+</head>
+
+<body>
+  <table>
+    <tr>
+      <th>#</th>
+      <th>RMA Number</th>
+      <th>Date Opened</th>
+      <th>Date Closed</th>
+      <th>Customer</th>
+      <th>Description</th>
+      <th>Status</th>
+      <th>Remove</th>
+    </tr>
+    {% for rma in rmas %}
+      <tr>
+        <td>{{ rma.id }}</td>
+        <td><a href="{{ rma.get_absolute_url }}">{{ rma.number }}</a></td>
+        <td>{{ rma.open }}</td>
+        <td>{{ rma.closed }}</td>
+        <td>{{ rma.customer }}</td>
+        <td>{{ rma.description }}</td>
+        <td>{{ rma.status }}</td>
+        <td><a href="{% url 'rma-delete' rma.pk %}"><span class="glyphicon glyphicon-remove"></span></a></td>
+      </tr>
+    {% endfor %}
+  </table>
+
+</body>
+
+</html>
