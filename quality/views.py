@@ -10,7 +10,7 @@ from django.shortcuts import get_object_or_404, render
 def index(request):
     """Quality Home Page"""
 
-    return HttpResponse("Quality, baby!")
+    return render(request, "quality/index.html")
 
 def rma_index(request):
     """Main List of RMA's"""
@@ -21,7 +21,7 @@ def rma_index(request):
 def rma_delete(request, pk):
     """Delete a specific rma"""
 
-    rma = get_object_or_404(RMA, pk=id)
+    rma = get_object_or_404(RMA, pk=pk)
     try:
         rma.delete()
     except ProtectedError:

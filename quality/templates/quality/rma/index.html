@@ -1,13 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'shared/base.html' %}
 
-<head>
-  <meta charset="UTF-8">
-  <title>RMA's</title>
-</head>
+{% block title %}PQ Quality - RMAs{% endblock %}
 
-<body>
-  <table>
+{% block header %}
+  <p>This is where my header inclusion will go.</p>
+{% endblock %}
+
+{% block body %}
+  <div class="container">
+    <h2>RMAs</h2>
+    <small><a href="/quality">Back to Quality Home</a></small>
+  <table class="table table-hover text-center">
     <tr>
       <th>#</th>
       <th>RMA Number</th>
@@ -31,7 +34,4 @@
       </tr>
     {% endfor %}
   </table>
-
-</body>
-
-</html>
+{% endblock %}
