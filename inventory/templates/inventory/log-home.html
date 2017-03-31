@@ -22,7 +22,7 @@
         <td>{{ log.plastic }}</td>
         <td>{{ log.new_value }}</td>
         <td>{{ log.notes }}</td>
-        <td><a href="{% url 'delete-log' log.pk %}"><span class="glyphicon glyphicon-remove"></span></a></td>
+        <td><a class="deleter" data-href="{% url 'delete-log' log.pk %}" data-toggle="modal" data-target="#confirm-delete"><span class="glyphicon glyphicon-remove"></span></a></td>
       </tr>
     {% endfor %}
   </table>

@@ -44,3 +44,7 @@ a.btn:hover {
 .main {
 	padding-bottom: 20px;
 }
+
+a.deleter {
+	cursor: pointer;
+}
