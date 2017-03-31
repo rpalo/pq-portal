@@ -7,7 +7,7 @@
 
 {% block body %}
   <div class="row">
-    <div class="col-md-9">
+    <div class="col-md-9 main">
       <h2>{% if plastic %}{{ plastic.number }}{% else %}New Plastic{% endif %}</h2>
       {% include 'inventory/form-errors.html' %}
       <form action="{% if plastic %}{{ plastic.get_absolute_url }}{% else %}{% url 'add' %}{% endif %}" method="post">
@@ -15,31 +15,21 @@
         {% for field in form %}
           <div class="form-group">
             {{ field.errors }}
-            {{ field.label_tag }} {{ field|addClass:'form-control' }}
+            {{ field.label_tag }}{% if field.field.required %}*{% endif %} {{ field|addClass:'form-control' }}
           </div>
         {% endfor %}
         <input type="submit" value="Save" />
       </form>
     </div>
-    {% if plastic %}
-    <div class="col-md-3">
-      <aside class="well">
-        <ul class="nav nav-pills nav-stacked">
-          <li><a class="btn btn-primary" href="/inventory/batches/?plastic={{ plastic.pk }}">Active Batches</a></li>
-        </ul>
-      </aside>
-    </div>
-    {% endif %}
-  </div>
   <br>
   {% if plastic %}
   <div class="row">
-    <div class="col-md-12 text-center">
+    <div class="col-md-9 text-center">
       <table class="table striped-table">
         <tr>
           <th>#</th>
           <th>Timestamp</th>
-          <th>Change (lbs)</th>
+          <th>New Value (lbs)</th>
           <th>Notes</th>
           <th>Remove</th>
         </tr>
@@ -47,7 +37,7 @@
         <tr>
           <td>{{ log.pk }}</td>
           <td>{{ log.timestamp }}</td>
-          <td>{{ log.change }}</td>
+          <td>{{ log.new_value }}</td>
           <td>{{ log.notes }}</td>
           <td><a href="{% url 'delete-log' log.pk %}"><span class="glyphicon glyphicon-remove"></span></a></td>
         </tr>

@@ -11,7 +11,7 @@
       <th>#</th>
       <th>Timestamp</th>
       <th>Plastic</th>
-      <th>Change (lbs)</th>
+      <th>New Value (lbs)</th>
       <th>Notes</th>
       <th>Remove</th>
     </tr>
@@ -20,7 +20,7 @@
         <td>{{ log.id }}</td>
         <td>{{ log.timestamp }}</a></td>
         <td>{{ log.plastic }}</td>
-        <td>{{ log.change }}</td>
+        <td>{{ log.new_value }}</td>
         <td>{{ log.notes }}</td>
         <td><a href="{% url 'delete-log' log.pk %}"><span class="glyphicon glyphicon-remove"></span></a></td>
       </tr>

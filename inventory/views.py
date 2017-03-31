@@ -25,8 +25,11 @@ def add(request):
         if form.is_valid():
             # Create new plastic and log the creation
             newPlastic = form.save()
-            firstLog = Log(change=newPlastic.quantity, notes="Added new plastic")
-            firstLog.save()
+            firstLog = Log(plastic=newPlastic, new_value=newPlastic.quantity, notes="Added new plastic")
+            try:
+                firstLog.save()
+            except ValidationError as e:
+                messages.success(request, "Plastic created.  Log couldn't be created.")
             return HttpResponseRedirect('/inventory/')
         else:
             raise Http404("There was a problem adding the plastic.")
