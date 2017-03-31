@@ -8,7 +8,13 @@
 {% block body %}
   <div class="row">
     <div class="col-md-9 main">
-      <h2>{% if plastic %}{{ plastic.number }}{% else %}New Plastic{% endif %}</h2>
+      <h2{% if plastic and plastic.needs_ordered %} class="text-danger"{% endif %}>
+        {% if plastic %}
+          {{ plastic.number }}
+        {% else %}
+          New Plastic
+        {% endif %}
+      </h2>
       {% include 'inventory/form-errors.html' %}
       <form action="{% if plastic %}{{ plastic.get_absolute_url }}{% else %}{% url 'add' %}{% endif %}" method="post">
         {% csrf_token %}

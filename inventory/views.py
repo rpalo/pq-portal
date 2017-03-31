@@ -117,5 +117,6 @@ def deleteLog(request, id):
         log.delete()
     except ProtectedError:
         messages.error("Could not delete this log.  It may have children that depend on it.")
-    return HttpResponseRedirect('/inventory/logs')
+    target = request.META.get('HTTP_REFERER', '/inventory/')
+    return HttpResponseRedirect(target)
 

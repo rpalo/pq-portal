@@ -19,8 +19,9 @@ nav ul li {
 	font-size: 5em;
 }
 
-.grey {
+#footer-text {
 	color: #999;
+	padding-top: 10px;
 }
 
 .log-subtable {
@@ -48,3 +49,24 @@ a.btn:hover {
 a.deleter {
 	cursor: pointer;
 }
+
+/* Sticky footer styles */
+html {
+	position: relative;
+	min-height: 100%;
+}
+
+body {
+	/* Adjust by footer height */
+	margin-bottom: 40px;
+}
+
+footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	/* Set fixed height */
+	height: 40px;
+	border-top: #999 solid 1px;
+}
+

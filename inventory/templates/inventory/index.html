@@ -22,7 +22,7 @@
         <td>{{ plastic.description }}</td>
         <td>{{ plastic.quantity }}</td>
         <td>{{ plastic.vendor }}</td>
-        <td><a data-href="{% url 'delete' plastic.pk %}" data-toggle="modal" data-target="#confirm-delete"><span class="glyphicon glyphicon-remove"></span></a></td>
+        <td><a class="deleter" data-href="{% url 'delete' plastic.pk %}" data-toggle="modal" data-target="#confirm-delete"><span class="glyphicon glyphicon-remove"></span></a></td>
       </tr>
     {% endfor %}
   </table>
