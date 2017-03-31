@@ -2,10 +2,9 @@
 
 # Imports
 from django.contrib import admin
-from .models import Batch, Log, Plastic
+from .models import Log, Plastic
 
 
 # Register Models
-admin.site.register(Batch)
 admin.site.register(Plastic)
 admin.site.register(Log)
