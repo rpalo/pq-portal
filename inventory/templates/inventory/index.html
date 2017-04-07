@@ -3,7 +3,7 @@
 {% block title %}PQ Inventory - Plastics{% endblock %}
 
 {% block body %}
-
+{% include 'inventory/header.html' with active_tab='plastic-home' %}
 <div class="container">
   <h2>Plastics</h2>
   <form class="form-inline searchForm" action="{% url 'plastic-home' %}" method="get">

@@ -3,7 +3,7 @@
 {% block title %}PQ Inventory - Logs{% endblock %}
 
 {% block body %}
-
+{% include 'inventory/header.html' with active_tab='log-home' %}
 <div class="container">
   <h1>Logs{% if plastic %} for {{ plastic.number }}{% endif %}</h1>
   <table class="table table-striped text-center">
@@ -27,4 +27,11 @@
     {% endfor %}
   </table>
 </div>
+<script>
+  const header = document.querySelector(".nav-pills");
+  const plasticHome = header.firstElementChild;
+  const logHome = header.lastElementChild;
+  plasticHome.classList.remove("active");
+  logHome.classList.add("active");
+</script>
 {% endblock %}

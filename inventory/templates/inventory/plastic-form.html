@@ -6,6 +6,7 @@
 {% endblock %}
 
 {% block body %}
+{% include 'inventory/header.html' with active_tab='plastic-new' %}
   <div class="row">
     <div class="col-md-9 main">
       <h2{% if plastic and plastic.needs_ordered %} class="text-danger"{% endif %}>
