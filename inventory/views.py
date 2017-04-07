@@ -12,8 +12,13 @@ from django.contrib import messages
 
 # Home Page
 def index(request):
-    plastics = Plastic.objects.all().order_by('quantity')
-    context = {"plastics": plastics}
+    search_value = request.GET.get("search")
+    if search_value:
+        plastics = Plastic.objects.filter(number__contains=search_value)
+    else:
+        plastics = Plastic.objects.all().order_by('number')
+    context = {"plastics": plastics,
+                "search": search_value or ""}
     return render(request, "inventory/index.html", context)
 
 # Add new plastic
